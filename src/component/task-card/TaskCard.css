@@ -1,0 +1,51 @@
+.TaskCard {
+    display: inline-block;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.TaskCardTaskName {
+    display: inline-block;
+    font-size: 1.5em;
+    color: darksalmon;
+    margin-bottom: 0.5em;
+    cursor: default;
+    width: auto;
+}
+
+.TaskCardDuration {
+
+}
+
+.TaskCardBottom {
+    width: 100%;
+}
+
+.TaskCardState {
+    text-align: center;
+}
+
+.TaskCardTimeBox {
+    margin-top: 0.5em;
+}
+
+.TaskCardTimeProgress {
+    display: inline-block !important;
+    width: calc(100% - 7em);
+    height: 0.6em !important;
+}
+
+.TaskCardStartTime, .TaskCardEndTime {
+    display: inline-block;
+    width: 3.5em;
+    font-weight: bold;
+}
+
+.TaskCardEndTime {
+    text-align: right;
+}
+
+.TaskCardComment {
+    margin-top: 1em;
+    color: #666666;
+}
