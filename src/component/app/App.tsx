@@ -1,15 +1,19 @@
 import React from 'react';
 import './App.css';
 import MainTabs from '../main-tabs/MainTabs';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
+import Footer from '../footer/Footer';
 
 function App() {
   return (
     <Container className='App'>
-      <div className='AppTitle'>
+      <Typography variant='h1' className='AppTitle'>
         Supervisor 2
-      </div>
+      </Typography>
+
       <MainTabs />
+
+      <Footer />
     </Container>
   );
 }

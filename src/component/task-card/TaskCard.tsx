@@ -2,33 +2,36 @@ import { Component } from 'react';
 import './TaskCard.css';
 import TaskCardTimeBox from './TaskCardTimeBox';
 import { Card, CardContent, Divider, Fade, Tooltip } from '@mui/material';
+import TaskVo from '../../Vo/task.vo';
+import Box from '@mui/material/Box';
+import { TaskStatus } from '../supervisor-console/OngoingTask';
 
-export interface TaskCardProps {
-  id: number;
-  subjectName: string,
-  taskName: string;
-  comment: string | null;
-}
-
-export default class TaskCard extends Component<TaskCardProps> {
+export default class TaskCard extends Component<TaskVo> {
   render() {
     return (
       <Card variant='elevation' elevation={3} className='TaskCard'>
         <CardContent>
-          <Tooltip title="Subject: English" placement="right" arrow TransitionComponent={Fade}>
-            <div className='TaskCardTaskName'>
-              {this.props.taskName}
-            </div>
-          </Tooltip>
-          <Divider />
-          <TaskCardTimeBox startTime='14:50' endTime='15:50' progress={+40}>
-          </TaskCardTimeBox>
-          {
-            (typeof this.props.comment == 'string') &&
-            <div className='TaskCardComment'>
-              {this.props.comment}
-            </div>
-          }
+          <Box>
+            <Tooltip title='Subject: English' placement='right' arrow TransitionComponent={Fade}>
+              <div className='TaskCardTaskTypeName'>
+                {this.props.taskTypeName}
+              </div>
+            </Tooltip>
+
+            {this.props.status === TaskStatus.ENDED && (
+              <Box className='TaskCardTaskDurationLabel'>
+                {this.props.duration} mins
+              </Box>
+            )}
+          </Box>
+
+          <Divider sx={{ marginBottom: '0.4em' }} />
+
+          <TaskCardTimeBox {...this.props} />
+
+          <div className='TaskCardComment'>
+            {this.props.comment}
+          </div>
         </CardContent>
       </Card>
     );

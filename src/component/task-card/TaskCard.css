@@ -1,10 +1,9 @@
 .TaskCard {
     display: inline-block;
     width: 100%;
-    margin-top: 1em;
 }
 
-.TaskCardTaskName {
+.TaskCardTaskTypeName {
     display: inline-block;
     font-size: 1.5em;
     color: darksalmon;
@@ -13,8 +12,12 @@
     width: auto;
 }
 
-.TaskCardDuration {
-
+.TaskCardTaskDurationLabel {
+    float: right;
+    color: steelblue;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 0.25em;
 }
 
 .TaskCardBottom {
@@ -36,7 +39,6 @@
 }
 
 .TaskCardStartTime, .TaskCardEndTime {
-    display: inline-block;
     width: 3.5em;
     font-weight: bold;
 }

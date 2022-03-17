@@ -3,9 +3,7 @@
 }
 
 .WorksheetGrid {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin-top: 0 !important;
 }
 
 .WorksheetLoading {
