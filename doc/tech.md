@@ -18,3 +18,6 @@
   * VO
 * Deploy on the server.
 
+## Plan 2
+
+* Nginx configurations
