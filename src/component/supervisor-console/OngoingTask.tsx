@@ -24,6 +24,7 @@ enum TaskAction {
 interface OngoingTaskState {
   ongoingTask: TaskVo | null;
   taskStatus: TaskStatus;
+  loading: boolean;
 }
 
 export default class OngoingTask extends Component<any, OngoingTaskState> {
@@ -32,6 +33,7 @@ export default class OngoingTask extends Component<any, OngoingTaskState> {
     this.state = {
       ongoingTask: null,
       taskStatus: 0,
+      loading: true,
     };
   }
 
@@ -47,12 +49,14 @@ export default class OngoingTask extends Component<any, OngoingTaskState> {
           this.setState({
             ongoingTask: ongoingTask,
             taskStatus: ongoingTask.status,
+            loading: false,
           });
         }
       });
   }
 
   updateStatus(action: TaskAction) {
+    this.setState({ loading: true });
     axios.put(Api.updateOngoingTaskStatus, {
       action: action,
     }).then((response) => {
@@ -61,7 +65,6 @@ export default class OngoingTask extends Component<any, OngoingTaskState> {
         this.setState({ ongoingTask: null });
         this.loadOngoingTask();
       } else {
-        console.log(ongoingTask);
         this.setState({
           ongoingTask,
           taskStatus: ongoingTask.status,
@@ -71,6 +74,17 @@ export default class OngoingTask extends Component<any, OngoingTaskState> {
   }
 
   render() {
+    // if (this.state.loading) {
+    //   return (<>
+    //     <Typography variant='h4' sx={{ marginBottom: '0.5em' }}>
+    //       Ongoing Task
+    //     </Typography>
+    //     <Skeleton variant='circular'>
+    //       <Typography>.</Typography>
+    //     </Skeleton>
+    //   </>);
+    // }
+
     if (this.state.ongoingTask === null) return (
       <>
         <Typography variant='h4' sx={{ marginBottom: '0.5em' }}>
@@ -87,7 +101,7 @@ export default class OngoingTask extends Component<any, OngoingTaskState> {
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <TaskCard {...this.state.ongoingTask} status={this.state.taskStatus}  />
+            <TaskCard {...this.state.ongoingTask} status={this.state.taskStatus} />
           </Grid>
           <Grid item xs={12} md={6}>
             {/* start button */}

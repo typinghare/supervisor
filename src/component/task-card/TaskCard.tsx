@@ -6,7 +6,16 @@ import TaskVo from '../../Vo/task.vo';
 import Box from '@mui/material/Box';
 import { TaskStatus } from '../supervisor-console/OngoingTask';
 
-export default class TaskCard extends Component<TaskVo> {
+interface TaskCardState {
+  status: number;
+}
+
+export default class TaskCard extends Component<TaskVo, TaskCardState> {
+  constructor(props: TaskVo) {
+    super(props);
+    this.state = { status: props.status };
+  }
+
   render() {
     return (
       <Card variant='elevation' elevation={3} className='TaskCard'>
@@ -27,7 +36,7 @@ export default class TaskCard extends Component<TaskVo> {
 
           <Divider sx={{ marginBottom: '0.4em' }} />
 
-          <TaskCardTimeBox {...this.props} />
+          <TaskCardTimeBox  {...this.props} status={this.state.status} />
 
           <div className='TaskCardComment'>
             {this.props.comment}

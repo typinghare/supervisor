@@ -14,7 +14,7 @@ interface TimeMonitorState {
 }
 
 export default class TimeMonitor extends Component<TimeMonitorProps, TimeMonitorState> {
-  private readonly intervalHandle: NodeJS.Timer | null = null;
+  private intervalHandle: NodeJS.Timer | null = null;
 
   componentWillUnmount() {
     clearInterval(this.intervalHandle as NodeJS.Timeout);
@@ -22,15 +22,17 @@ export default class TimeMonitor extends Component<TimeMonitorProps, TimeMonitor
 
   constructor(props: TimeMonitorProps) {
     super(props);
-    if (props.flicker) {
+    this.state = { colonShow: true };
+  }
+
+  componentDidMount() {
+    if (this.props.flicker) {
       this.intervalHandle = setInterval(() => {
         this.setState({
           colonShow: !this.state.colonShow,
         });
       }, 1000);
     }
-
-    this.state = { colonShow: true };
   }
 
   render() {
@@ -40,7 +42,9 @@ export default class TimeMonitor extends Component<TimeMonitorProps, TimeMonitor
         display: 'inline-block',
       }} className={this.props.className}>
         {this.props.hour !== undefined ? (this.props.hour < 10 ? '0' + this.props.hour : this.props.hour) : '--'}
-        <span>{this.state.colonShow ? ':' : ' '}</span>
+        <Box sx={{ display:'inline', color: this.state.colonShow ? 'inherit' : 'white' }}>
+          :
+        </Box>
         {this.props.minute !== undefined ? (this.props.minute < 10 ? '0' + this.props.minute : this.props.minute) : '--'}
       </Box>
     );

@@ -6,19 +6,21 @@ import TimeMonitor from './TimeMonitor';
 import { TaskStatus } from '../supervisor-console/OngoingTask';
 import moment from 'moment';
 
+type TakCardTimeBoxProps = Pick<TaskVo, 'status' | 'duration' | 'expectedDuration' | 'startTime' | 'endTime'>
+
 type TaskCardTimeBoxState = {
   progress: number,
   duration: number;
 };
 
-export default class TaskCardTimeBox extends Component<TaskVo, TaskCardTimeBoxState> {
+export default class TaskCardTimeBox extends Component<TakCardTimeBoxProps, TaskCardTimeBoxState> {
   private durationInterval: NodeJS.Timer | null;
 
   constructor(props: TaskVo) {
     super(props);
     this.state = {
       duration: this.props.duration || 0,
-      progress: Math.min(100, Math.floor(this.props.duration / this.props.expectedDuration * 100))
+      progress: this.getProgress(this.props.duration),
     };
     this.durationInterval = null;
   }
@@ -29,15 +31,16 @@ export default class TaskCardTimeBox extends Component<TaskVo, TaskCardTimeBoxSt
     }
   }
 
-  getProgress(): number {
-    const n = Math.floor(this.state.duration / this.props.expectedDuration);
-    return Math.min(100, n);
+  getProgress(duration: number): number {
+    return Math.min(100, Math.floor(duration / this.props.expectedDuration * 100));
   }
 
   public on() {
     this.durationInterval = setInterval(() => {
+      const newDuration = this.state.duration + 1;
       this.setState({
-        duration: this.state.duration + 1,
+        duration: newDuration,
+        progress: this.getProgress(newDuration),
       });
     }, 60000);
   }
